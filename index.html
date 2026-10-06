@@ -554,286 +554,104 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Helper to get 3rd Friday of a given month
-        function getThirdFriday(year, month) {
-            let date = new Date(year, month, 1);
-            let fridayCount = 0;
-            while (date.getMonth() === month) {
-                if (date.getDay() === 5) { // 5 is Friday
-                    fridayCount++;
-                    if (fridayCount === 3) return new Date(date);
-                }
-                date.setDate(date.getDate() + 1);
-            }
-            return null;
-        }
-
-        // Generate dynamic 3rd Friday dates starting Oct 30, 2026
-        function generateUpcomingDates() {
-            const dates = [];
-            const kickoff = new Date(2026, 9, 30); // Oct 30, 2026
+        // --- 1. Dynamic Date Logic ---
+        function calculateNextShowDate() {
             const today = new Date();
-            const todayZero = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            today.setHours(0,0,0,0);
+            const launchDate = new Date(2026, 9, 30); // October 30, 2026
 
-            if (kickoff >= todayZero) {
-                dates.push(kickoff);
-            }
+            if (today <= launchDate) return launchDate;
 
-            let currentYear = kickoff.getFullYear();
-            let currentMonth = kickoff.getMonth() + 1; // start following month
-
-            for (let i = 0; i < 12; i++) {
-                let m = (currentMonth + i) % 12;
-                let y = currentYear + Math.floor((currentMonth + i) / 12);
-                let thirdFriday = getThirdFriday(y, m);
-                if (thirdFriday && thirdFriday >= todayZero) {
-                    if (!dates.some(d => d.toDateString() === thirdFriday.toDateString())) {
-                        dates.push(thirdFriday);
+            function getThirdFriday(year, month) {
+                let d = new Date(year, month, 1);
+                let count = 0;
+                while (d.getMonth() === month) {
+                    if (d.getDay() === 5) {
+                        count++;
+                        if (count === 3) return d;
                     }
+                    d.setDate(d.getDate() + 1);
                 }
+                return null;
             }
-            dates.sort((a, b) => a - b);
-            return dates.slice(0, 6);
+
+            const currentMonthThirdFriday = getThirdFriday(today.getFullYear(), today.getMonth());
+            if (currentMonthThirdFriday && today <= currentMonthThirdFriday) {
+                return currentMonthThirdFriday;
+            } else {
+                let nextMonth = today.getMonth() + 1;
+                let nextYear = today.getFullYear();
+                if (nextMonth > 11) { nextMonth = 0; nextYear++; }
+                return getThirdFriday(nextYear, nextMonth);
+            }
         }
 
-        const upcomingEventDates = generateUpcomingDates();
-        const nextUpcomingDate = upcomingEventDates[0];
+        const nextDate = calculateNextShowDate();
+        document.getElementById('queue-title').innerText = `View ${nextDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} Queue`;
 
-        // Generate 10-minute slots from 6:00 PM to 9:30 PM
-        function generate10MinSlots() {
-            const slots = [];
-            let startMinutes = 6 * 60; // 6:00 PM = 360 mins from noon
-            let endMinutes = 9 * 60 + 30; // 9:30 PM
-            let currentId = 1;
-
-            const sampleActs = [
-                { name: "East Bay Duo", type: "Music", detail: "Acoustic Guitar / Vocals" },
-                { name: "Dave Miller", type: "Comedy", detail: "Stand-Up Comedy Set" },
-                { name: "Juggling Jerry", type: "Misc", detail: "Stage Juggling Routine" },
-                { name: "Maya Lin", type: "Poetry", detail: "Spoken Word Poetry" },
-                { name: "The Hopheads", type: "Music", detail: "Electric Guitar / Vocals" },
-                { name: "Samantha Vance", type: "Comedy", detail: "Stand-Up Comedy Set" }
-            ];
-            let sampleIndex = 0;
-
-            for (let min = startMinutes; min < endMinutes; min += 10) {
-                let hour = Math.floor(min / 60);
-                let minute = min % 60;
-                let period = hour >= 12 ? 'PM' : 'AM';
-                let displayHour = hour > 12 ? hour - 12 : hour;
-                let displayMin = minute < 10 ? '0' + minute : minute;
-                let timeString = `${displayHour}:${displayMin} ${period}`;
-
-                let block = "Early Block (6:00 PM - 7:00 PM)";
-                if (hour >= 7 && (hour < 8 || (hour === 8 && minute <= 30))) {
-                    block = "Prime Block (7:00 PM - 8:30 PM)";
-                } else if (hour >= 8) {
-                    block = "Late Block (8:30 PM - 9:30 PM)";
-                }
-
-                let isOccupied = (currentId % 3 === 1) && sampleIndex < sampleActs.length;
-                let actInfo = isOccupied ? sampleActs[sampleIndex++] : null;
-
-                slots.push({
-                    id: currentId++,
-                    time: timeString,
-                    name: isOccupied ? actInfo.name : "Open Stage Slot",
-                    type: isOccupied ? actInfo.type : "Open",
-                    detail: isOccupied ? actInfo.detail : "5-10 Min / 1-2 Song Slot Available",
-                    block: block,
-                    status: isOccupied ? "Confirmed" : "Open"
-                });
+        // --- 2. Dynamic Backing Track Fields Logic ---
+        const trackToggle = document.getElementById('backing-track-toggle');
+        const trackFields = document.getElementById('backing-track-fields');
+        
+        trackToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                trackFields.classList.remove('hidden');
+                trackFields.classList.add('animate-pulse');
+                setTimeout(() => trackFields.classList.remove('animate-pulse'), 300);
+            } else {
+                trackFields.classList.add('hidden');
             }
-            return slots;
-        }
-
-        let scheduleData = generate10MinSlots();
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('year').textContent = new Date().getFullYear();
-
-            // Set dynamic header widget title: "View October 30, 2026 Queue"
-            const formattedNextDate = nextUpcomingDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-            const queueTitleElem = document.getElementById('dynamic-queue-title');
-            if (queueTitleElem) queueTitleElem.textContent = `View ${formattedNextDate} Queue`;
-
-            const heroScheduleBtn = document.getElementById('hero-schedule-btn');
-            if (heroScheduleBtn) {
-                heroScheduleBtn.innerHTML = `<i class="fa-regular fa-calendar-days text-gray-400"></i> View ${nextUpcomingDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} Queue`;
-            }
-
-            // Populate event date dropdown
-            const dateSelect = document.getElementById('event-date');
-            upcomingEventDates.forEach((d, idx) => {
-                const formatted = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-                const option = document.createElement('option');
-                option.value = formatted;
-                option.textContent = idx === 0 ? `${formatted} (NEXT UPCOMING SHOW)` : formatted;
-                dateSelect.appendChild(option);
-            });
-
-            renderSchedule('all');
-
-            // Mobile Navigation Toggle
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
-            document.querySelectorAll('.mobile-link').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-            });
-
-            // Accordion FAQ
-            const faqToggles = document.querySelectorAll('.faq-toggle');
-            faqToggles.forEach(toggle => {
-                toggle.addEventListener('click', () => {
-                    const content = toggle.nextElementSibling;
-                    const icon = toggle.querySelector('i');
-                    const isHidden = content.classList.contains('hidden');
-                    document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
-                    document.querySelectorAll('.faq-toggle i').forEach(i => i.style.transform = 'rotate(0deg)');
-                    if (isHidden) {
-                        content.classList.remove('hidden');
-                        icon.style.transform = 'rotate(180deg)';
-                    }
-                });
-            });
-
-            // Queue Filter Buttons
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => {
-                        b.classList.remove('bg-amber-500', 'text-black', 'active');
-                        b.classList.add('bg-white/5', 'text-gray-300');
-                    });
-                    btn.classList.add('bg-amber-500', 'text-black', 'active');
-                    btn.classList.remove('bg-white/5', 'text-gray-300');
-                    renderSchedule(btn.getAttribute('data-filter'));
-                });
-            });
-
-            // Conditional Backing Track Upload / URL Toggle
-            const backingTrackCheckbox = document.getElementById('backing-track-checkbox');
-            const backingTrackContainer = document.getElementById('backing-track-container');
-            if (backingTrackCheckbox && backingTrackContainer) {
-                backingTrackCheckbox.addEventListener('change', () => {
-                    if (backingTrackCheckbox.checked) {
-                        backingTrackContainer.classList.remove('hidden');
-                    } else {
-                        backingTrackContainer.classList.add('hidden');
-                    }
-                });
-            }
-
-            document.getElementById('performer-form').addEventListener('submit', handleFormSubmit);
-            document.getElementById('close-modal').addEventListener('click', closeModal);
-            document.getElementById('modal-done-btn').addEventListener('click', closeModal);
         });
 
-        function renderSchedule(filter = 'all') {
-            const grid = document.getElementById('schedule-grid');
-            grid.innerHTML = '';
-            const filteredData = scheduleData.filter(item => filter === 'all' || item.type === filter);
+        // --- 3. Live Google Sheets Form Submission ---
+        const signupForm = document.getElementById('signup-form');
+        const modal = document.getElementById('success-modal');
+        const modalContent = document.getElementById('modal-content');
 
-            if (filteredData.length === 0) {
-                grid.innerHTML = `<div class="col-span-3 text-center py-8 text-gray-400">No slots found in this category.</div>`;
-                return;
-            }
-
-            filteredData.forEach(slot => {
-                const isAvailable = slot.status === 'Open';
-                let iconClass = 'fa-microphone';
-                if (slot.type === 'Music') iconClass = 'fa-guitar';
-                if (slot.type === 'Comedy') iconClass = 'fa-masks-theater';
-                if (slot.type === 'Misc') iconClass = 'fa-wand-magic-sparkles';
-                if (slot.type === 'Poetry') iconClass = 'fa-feather-pointed';
-                if (isAvailable) iconClass = 'fa-plus';
-
-                const card = document.createElement('div');
-                card.className = `p-4 rounded-2xl border transition-all ${isAvailable ? 'border-dashed border-amber-500/40 bg-amber-500/5 hover:bg-amber-500/10' : 'border-bordercolor bg-cardbg'}`;
-                card.innerHTML = `
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-mono px-2 py-1 rounded bg-darkbg border border-bordercolor text-amber-400 font-bold">${slot.time}</span>
-                        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full ${isAvailable ? 'bg-amber-500/20 text-amber-300' : 'bg-white/10 text-gray-300'}">${slot.type}</span>
-                    </div>
-                    <div class="flex items-center space-x-3 mt-3">
-                        <div class="w-8 h-8 rounded-full ${isAvailable ? 'bg-amber-500/20 text-amber-400' : 'bg-white/5 text-gray-300'} flex items-center justify-center text-xs">
-                            <i class="fa-solid ${iconClass}"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-white leading-snug">${slot.name}</h4>
-                            <p class="text-xs text-gray-400">${slot.detail}</p>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function handleFormSubmit(e) {
+        signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const actName = document.getElementById('act-name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const eventDate = document.getElementById('event-date').value;
-            const actType = document.getElementById('act-type').value;
-            const timeSlotBlock = document.getElementById('time-slot').value;
-            const vocalMicSelect = document.getElementById('vocal-mics').value;
-            const instInputsSelect = document.getElementById('inst-inputs').value;
-            const techBoxes = document.querySelectorAll('input[name="tech"]:checked');
-            const techList = Array.from(techBoxes).map(cb => cb.value);
+            
+            const formData = {
+                actName: document.getElementById('act-name').value,
+                actCategory: document.getElementById('act-category').value,
+                actEmail: document.getElementById('act-email').value,
+                vocalMics: document.getElementById('vocal-mics').value,
+                instInputs: document.getElementById('inst-inputs').value,
+                backingTrack: document.getElementById('backing-track-toggle').checked ? (document.getElementById('backing-track-url').value || "Yes") : "No"
+            };
 
-            if (vocalMicSelect && vocalMicSelect !== 'No Vocal Mic') techList.unshift(vocalMicSelect);
-            if (instInputsSelect && instInputsSelect !== 'No Instrument Input') techList.unshift(instInputsSelect);
+            // Replace with your deployed Google Apps Script Web App URL
+            const WEB_APP_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
-            const trackFile = document.getElementById('track-file').files[0];
-            const trackUrl = document.getElementById('track-url').value.trim();
-            if (trackFile) {
-                techList.push(`Backing Track File: ${trackFile.name}`);
-            } else if (trackUrl) {
-                techList.push(`Backing Track Link: ${trackUrl}`);
+            try {
+                await fetch(WEB_APP_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+
+                // Show Success Modal
+                modal.classList.remove('hidden');
+                void modal.offsetWidth; 
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                
+                // Reset form
+                signupForm.reset();
+                trackFields.classList.add('hidden');
+
+            } catch (error) {
+                alert("There was an error submitting your act. Please try again.");
+                console.error("Error:", error);
             }
-
-            let category = "Music";
-            if (actType.includes("Comedy")) category = "Comedy";
-            else if (actType.includes("Miscellaneous")) category = "Misc";
-            else if (actType.includes("Poetry")) category = "Poetry";
-
-            const targetIndex = scheduleData.findIndex(s => s.status === 'Open' && s.block === timeSlotBlock);
-            let assignedTime = "6:00 PM Slot";
-            if (targetIndex !== -1) {
-                scheduleData[targetIndex] = { ...scheduleData[targetIndex], name: actName, type: category, detail: actType, status: "Confirmed" };
-                assignedTime = scheduleData[targetIndex].time;
-            } else {
-                const anyOpenIndex = scheduleData.findIndex(s => s.status === 'Open');
-                if (anyOpenIndex !== -1) {
-                    scheduleData[anyOpenIndex] = { ...scheduleData[anyOpenIndex], name: actName, type: category, detail: actType, status: "Confirmed" };
-                    assignedTime = scheduleData[anyOpenIndex].time;
-                }
-            }
-
-            renderSchedule('all');
-
-            document.getElementById('modal-details').innerHTML = `
-                <div class="flex justify-between border-b border-bordercolor pb-2"><span class="text-gray-400">Event Date:</span><span class="font-bold text-amber-400">${escapeHtml(eventDate)}</span></div>
-                <div class="flex justify-between border-b border-bordercolor pb-2"><span class="text-gray-400">Performer / Group:</span><span class="font-bold text-white">${escapeHtml(actName)}</span></div>
-                <div class="flex justify-between border-b border-bordercolor pb-2"><span class="text-gray-400">Category:</span><span class="font-bold text-amber-400">${escapeHtml(actType)}</span></div>
-                <div class="flex justify-between border-b border-bordercolor pb-2"><span class="text-gray-400">Stage Slot Time:</span><span class="font-bold text-white">${escapeHtml(assignedTime)}</span></div>
-                <div class="flex justify-between border-b border-bordercolor pb-2"><span class="text-gray-400">Contact Email:</span><span class="font-bold text-white">${escapeHtml(email)}</span></div>
-                <div><span class="text-gray-400 block mb-1">Stage Equipment Requested:</span><span class="text-xs text-gray-300 bg-white/5 p-2 rounded-xl block">${techList.length ? techList.join(', ') : 'Standard Setup'}</span></div>
-            `;
-            document.getElementById('confirmation-modal').classList.remove('hidden');
-            document.getElementById('performer-form').reset();
-            document.getElementById('backing-track-container').classList.add('hidden');
-        }
+        });
 
         function closeModal() {
-            document.getElementById('confirmation-modal').classList.add('hidden');
-        }
-
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
         }
     </script>
-</body>
-</html>
