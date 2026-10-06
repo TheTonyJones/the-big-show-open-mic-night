@@ -260,29 +260,33 @@
             </div>
         </section>
 
-        <!-- LIVE EVENT LINEUP GRID / QUEUE SECTION (POSITIONED AFTER STAGE GEAR) -->
-        <section id="schedule" class="py-20 bg-darkbg/60 border-b border-bordercolor">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
-                    <div>
-                        <span class="text-xs text-amber-400 uppercase tracking-widest font-semibold">Live Event Lineup</span>
-                        <!-- Dynamic schedule header widget -->
-                        <h2 id="dynamic-queue-title" class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-wide mt-1">View Schedule Queue</h2>
-                        <p class="text-gray-400 text-sm mt-1">Stage slots calculated between 6:00 PM and 9:30 PM. Pre-register below to claim an open slot.</p>
+        <!-- LIVE EVENT LINEUP GRID / QUEUE SECTION (POSITIONED AFTER STAGE GEAR) -->    
+            <section id="schedule" class="py-20 bg-darkbg">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-8">
+                        <div>
+                            <span class="text-xs text-amber-500 uppercase tracking-widest font-bold block mb-1">Live Event Lineup</span>
+                            <h3 id="queue-title" class="text-3xl font-display font-bold text-white uppercase tracking-wide">
+                            Official Event Queue
+                            </h3>
+                        </div>
+                        <div class="mt-4 md:mt-0 text-sm text-gray-400">
+                        Shows run 6:00 PM - 9:30 PM
+                        </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-4 md:mt-0" id="filter-container">
-                        <button class="filter-btn active px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-amber-500 text-black" data-filter="all">All Acts</button>
-                        <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10" data-filter="Music">Music</button>
-                        <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10" data-filter="Comedy">Comedy</button>
-                        <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10" data-filter="Misc">Misc / Variety</button>
-                        <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/5 text-gray-300 hover:bg-white/10" data-filter="Poetry">Poetry</button>
+
+                    <!-- Embedded Google Sheet Container -->
+                    <div class="bg-cardbg rounded-3xl p-4 border border-bordercolor overflow-hidden shadow-2xl">
+                        <div class="w-full h-[600px] rounded-2xl overflow-hidden bg-darkbg">
+                            <iframe src="YOUR_PUBLISHED_GOOGLE_SHEET_EMBED_URL_HERE" class="w-full h-full border-0"></iframe>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <p class="text-xs text-gray-400">Maintained and curated exclusively by the event host.</p>
+                        </div>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="schedule-grid"></div>
-            </div>
-        </section>
-
+            </section>
+        
         <!-- PRE-REGISTER YOUR ACT FORM SECTION -->
         <section id="register" class="py-20 bg-darkbg relative border-b border-bordercolor">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
