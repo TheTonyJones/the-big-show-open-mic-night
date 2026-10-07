@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BIG SHOW! at Gilman Brewing - Open Mic & Performer Registration</title>
-    <!-- Tailwind CSS CDN -->
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     
     <script>
@@ -19,8 +20,7 @@
             theme: {
                 extend: {
                     colors: {
-                        amber: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
-                        copper: { 400: '#e08a5d', 500: '#c86d3b', 600: '#a65225' },
+                        amber: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' },
                         darkbg: '#12151a',
                         cardbg: '#181c24',
                         bordercolor: '#282e3a',
@@ -35,514 +35,279 @@
         }
     </script>
     <style>
-        body { background-color: #12151a; color: #e2e8f0; font-family: 'Inter', sans-serif; }
-        select { color-scheme: dark; }
-        .bg-brewery-hero {
+        body { background-color: #12151a; color: #e2e8f0; }
+        .hero-pattern {
             background: linear-gradient(to bottom, rgba(18, 21, 26, 0.8), rgba(18, 21, 26, 0.98)),
-                        radial-gradient(circle at 50% 20%, rgba(245, 158, 11, 0.22) 0%, rgba(18, 21, 26, 1) 75%);
+                        radial-gradient(circle at 50% 20%, rgba(245, 158, 11, 0.15) 0%, rgba(18, 21, 26, 1) 70%);
         }
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #12151a; }
         ::-webkit-scrollbar-thumb { background: #282e3a; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-darkbg text-gray-200 antialiased selection:bg-amber-500 selection:text-black">
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
 
-    <!-- Header Navigation -->
-    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-darkbg/90 border-b border-bordercolor transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center space-x-3">
-                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-500 to-copper-400 flex items-center justify-center text-black font-extrabold shadow-lg shadow-amber-500/20">
-                        <i class="fa-solid fa-beer-mug-empty text-xl"></i>
-                    </div>
-                    <div>
-                        <span class="font-display font-extrabold text-2xl tracking-wide text-white block leading-none uppercase">THE BIG SHOW!</span>
-                        <span class="text-xs text-amber-400 font-bold tracking-widest block mt-1 uppercase">GILMAN BREWING</span>
-                    </div>
+    <!-- Navigation -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-darkbg/90 border-b border-bordercolor">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-black shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-beer-mug-empty text-lg"></i>
                 </div>
-
-                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
-                    <a href="#about" class="text-gray-300 hover:text-amber-400 transition-colors">The Event</a>
-                    <a href="#rules" class="text-gray-300 hover:text-amber-400 transition-colors">Rules</a>
-                    <a href="#gear" class="text-gray-300 hover:text-amber-400 transition-colors">Stage Gear</a>
-                    <a href="#schedule" class="text-gray-300 hover:text-amber-400 transition-colors">Live Schedule</a>
-                    <a href="#register" class="text-gray-300 hover:text-amber-400 transition-colors">Pre-Register</a>
-                    <a href="#faq" class="text-gray-300 hover:text-amber-400 transition-colors">FAQ & Venue</a>
-                    <a href="#register" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold uppercase tracking-wider text-xs transition-all duration-200 transform hover:scale-105 shadow-md shadow-amber-500/20">
-                        Sign Up To Perform
-                    </a>
-                </nav>
-
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" type="button" class="text-gray-300 hover:text-white focus:outline-none p-2" aria-label="Toggle menu">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
+                <div>
+                    <span class="font-display font-bold text-xl tracking-wide text-white block leading-none">THE BIG SHOW!</span>
                 </div>
             </div>
-        </div>
-
-        <div id="mobile-menu" class="hidden md:hidden bg-cardbg border-b border-bordercolor px-4 pt-2 pb-6 space-y-3">
-            <a href="#about" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-400 hover:bg-white/5">The Event</a>
-            <a href="#rules" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-400 hover:bg-white/5">Rules</a>
-            <a href="#gear" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-400 hover:bg-white/5">Stage Gear</a>
-            <a href="#schedule" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-400 hover:bg-white/5">Live Schedule</a>
-            <a href="#register" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-400 hover:bg-white/5">Pre-Register</a>
-            <a href="#faq" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-400 hover:bg-white/5">FAQ & Venue</a>
-            <a href="#register" class="mobile-link block w-full text-center mt-4 px-5 py-3 rounded-xl bg-amber-500 text-black font-bold uppercase tracking-wider text-xs shadow-lg">
-                Sign Up To Perform
-            </a>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#register" class="text-gray-300 hover:text-amber-400 transition">Register Act</a>
+                <a href="#rules" class="text-gray-300 hover:text-amber-400 transition">Rules & Gear</a>
+                <a href="#schedule" class="text-gray-300 hover:text-amber-400 transition">Live Lineup</a>
+            </nav>
         </div>
     </header>
 
     <main class="flex-grow">
-        <!-- HERO SECTION -->
-        <section class="relative py-20 lg:py-28 overflow-hidden bg-brewery-hero border-b border-bordercolor">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs sm:text-sm font-semibold mb-6 backdrop-blur-sm uppercase tracking-wider">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-                    Launch Date: October 30, 2026 • Every 3rd Friday • Doors 5:30 PM • Show 6:00 PM
+        <!-- Hero Section -->
+        <section class="relative py-20 lg:py-28 overflow-hidden hero-pattern border-b border-bordercolor text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold mb-6 uppercase tracking-widest">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    Launch Date: October 30, 2026
                 </div>
 
-                <h1 class="text-5xl sm:text-7xl lg:text-8xl font-display font-extrabold text-white tracking-tight uppercase leading-none mb-2">
+                <h1 class="text-6xl sm:text-7xl md:text-8xl font-display font-extrabold text-white tracking-tight uppercase leading-none mb-2">
                     THE BIG SHOW!
-                    <span class="block text-3xl sm:text-5xl font-display font-extrabold text-amber-400 tracking-wider mt-3 uppercase">GILMAN BREWING</span>
                 </h1>
-
-                <!-- Tagline directly below GILMAN BREWING -->
-                <p class="text-lg sm:text-2xl font-serif italic text-amber-200/90 max-w-4xl mx-auto mb-4 leading-relaxed">
-                    "Modern vaudeville! Anything goes! Stand-Up Comedy, Live Music, Juggling, you have talents, and we want to showcase them!"
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-amber-500 tracking-widest uppercase mb-6 drop-shadow-md">
+                    GILMAN BREWING
+                </h2>
+                
+                <p class="text-lg sm:text-xl font-serif italic text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                    Modern vaudeville! Anything goes! Stand-Up Comedy, Live Music, Juggling, you have talents, and we want to showcase them!
                 </p>
-
-                <!-- Sub-header directly below tagline -->
-                <p class="text-sm sm:text-lg text-amber-400 font-semibold tracking-widest uppercase mb-10">
-                    Berkeley's newest open mic...
-                </p>
-
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10 text-left">
-                    <div class="p-4 rounded-2xl bg-cardbg/80 border border-bordercolor backdrop-blur">
-                        <div class="text-amber-400 mb-1"><i class="fa-regular fa-calendar-check text-xl"></i></div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Frequency</div>
-                        <div class="text-base font-bold text-white">Every 3rd Friday</div>
-                        <div class="text-[11px] text-amber-400 font-medium">Launch: Oct 30, 2026</div>
-                    </div>
-                    <div class="p-4 rounded-2xl bg-cardbg/80 border border-bordercolor backdrop-blur">
-                        <div class="text-amber-400 mb-1"><i class="fa-regular fa-clock text-xl"></i></div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Showtimes</div>
-                        <div class="text-base font-bold text-white">6:00 PM – 9:30 PM</div>
-                        <div class="text-[11px] text-gray-400">Doors at 5:30 PM</div>
-                    </div>
-                    <div class="p-4 rounded-2xl bg-cardbg/80 border border-bordercolor backdrop-blur">
-                        <div class="text-amber-400 mb-1"><i class="fa-solid fa-stopwatch text-xl"></i></div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Slot Limit</div>
-                        <div class="text-base font-bold text-white">5–10 Mins / 1–2 Songs</div>
-                        <div class="text-[11px] text-amber-400 font-medium">Strict time limit</div>
-                    </div>
-                    <div class="p-4 rounded-2xl bg-cardbg/80 border border-bordercolor backdrop-blur">
-                        <div class="text-amber-400 mb-1"><i class="fa-solid fa-location-dot text-xl"></i></div>
-                        <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Venue</div>
-                        <div class="text-base font-bold text-white">Gilman Brewing</div>
-                        <div class="text-[11px] text-gray-400">912 Gilman St, Berkeley</div>
-                    </div>
-                </div>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#register" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold uppercase tracking-wider text-sm transition-all transform hover:-translate-y-0.5 shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-microphone-lines"></i>
-                        Pre-Register For Stage Time
+                    <a href="#register" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-wider text-sm transition-all shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-ticket"></i> Register Now
                     </a>
-                    <a href="#schedule" id="hero-schedule-btn" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-bordercolor font-semibold text-sm transition-all flex items-center justify-center gap-2">
-                        <i class="fa-regular fa-calendar-days text-gray-400"></i>
-                        View Schedule Queue
+                    <a href="#schedule" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-bordercolor font-semibold text-sm transition-all flex items-center justify-center gap-2">
+                        View Next Lineup
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- ABOUT / PERFORMANCE CATEGORIES -->
-        <section id="about" class="py-16 bg-darkbg border-b border-bordercolor">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-xs text-amber-400 uppercase tracking-widest font-semibold mb-2">Welcome To Gilman Brewing</h2>
-                    <p class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-wide">Featured Performance Categories</p>
-                    <p class="text-gray-400 text-sm mt-2">Whether testing new material or bringing fresh energy, our taproom stage welcomes all talents.</p>
-                </div>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    <div>
-        <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">ACT / GENRE CATEGORY *</label>
-        <select id="act-category" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition appearance-none">
-            <option value="" disabled selected>Select Category</option>
-            <option value="Acoustic Music">Acoustic Music</option>
-            <option value="Electric Act">Electric Act</option>
-            <option value="Stand-Up Comedy">Stand-Up Comedy</option>
-            <option value="Poetry/Spoken Word">Poetry / Spoken Word</option>
-            <option value="Juggling/Variety">Juggling / Variety</option>
-        </select>
-    </div>
-    <div>
-        <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Email Address *</label>
-        <input type="email" id="act-email" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="you@example.com">
-    </div>
-</div>
-        </section>
-
-        <!-- STAGE RULES & GUIDELINES SECTION -->
-        <section id="rules" class="py-20 bg-darkbg border-b border-bordercolor">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="text-xs text-amber-400 uppercase tracking-widest font-semibold mb-1 block">Taproom Protocols</span>
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-wide">Stage Rules & Guidelines</h2>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-cardbg rounded-3xl p-8 border border-bordercolor hover:border-amber-500/30 transition-all">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-stopwatch"></i></div>
-                        <h3 class="text-xl font-bold text-white mb-2">Strict Time Limit</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Strict 5 to 10 minute / 1 or 2 song limit per slot to keep stage changeovers swift and seamless.</p>
-                    </div>
-                    <div class="bg-cardbg rounded-3xl p-8 border border-bordercolor hover:border-amber-500/30 transition-all">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-clipboard-check"></i></div>
-                        <h3 class="text-xl font-bold text-white mb-2">Host Check-In</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Please check in with the host at Gilman Brewing 15 minutes prior to your performance block.</p>
-                    </div>
-                    <div class="bg-cardbg rounded-3xl p-8 border border-bordercolor hover:border-amber-500/30 transition-all">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-heart"></i></div>
-                        <h3 class="text-xl font-bold text-white mb-2">Support Other Artists</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Stick around, grab a craft pint, and cheer for fellow Bay Area talent!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- GILMAN HOUSE STAGE GEAR SECTION (POSITIONED BEFORE LIVE EVENT LINEUP) -->
-        <section id="gear" class="py-20 bg-darkbg border-b border-bordercolor">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="text-xs text-amber-400 uppercase tracking-widest font-semibold mb-1 block">Professional Audio Hardware</span>
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-wide">Gilman House Stage Gear</h2>
-                    <p class="text-gray-400 text-sm mt-2">Professional equipment provided on stage for clean sound and fast setups.</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-plug"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">1x Radial Active DI Box</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">High-grade active DI box for acoustic instruments, active pickups, and keyboards.</p>
-                    </div>
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-box"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">Cajon with Pickup</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">On-stage cajon equipped with integrated pickup for acoustic rhythm accompaniment.</p>
-                    </div>
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-volume-high"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">Stage Monitors & PA</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Calibrated house main PA and dedicated stage wedge monitors for clear performer feedback.</p>
-                    </div>
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-sliders"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">Analog Soundboard</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Analog Soundboard w/ up to 10 inputs for microphones, instruments, and playback devices.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- LIVE EVENT LINEUP GRID / QUEUE SECTION (POSITIONED AFTER STAGE GEAR) -->    
-            <section id="schedule" class="py-20 bg-darkbg">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-col md:flex-row justify-between items-end mb-8">
-                        <div>
-                            <span class="text-xs text-amber-500 uppercase tracking-widest font-bold block mb-1">Live Event Lineup</span>
-                            <h3 id="queue-title" class="text-3xl font-display font-bold text-white uppercase tracking-wide">
-                            Official Event Queue
-                            </h3>
-                        </div>
-                        <div class="mt-4 md:mt-0 text-sm text-gray-400">
-                        Shows run 6:00 PM - 9:30 PM
-                        </div>
-                    </div>
-
-                    <!-- Embedded Google Sheet Container -->
-                    <div class="bg-cardbg rounded-3xl p-4 border border-bordercolor overflow-hidden shadow-2xl">
-                        <div class="w-full h-[600px] rounded-2xl overflow-hidden bg-darkbg">
-                            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT2yWBG-UX7tGbTtg5lUrv2baIqCOBs9pRTaVwavq9qe-gEUC2AbLY86bTk7DnYHFHrZo6qUuwMByEF/pubhtml" class="w-full h-full border-0"></iframe>
-                        </div>
-                        <div class="mt-4 text-center">
-                            <p class="text-xs text-gray-400">Maintained and curated exclusively by the event host.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        
-        <!-- PRE-REGISTER YOUR ACT FORM SECTION -->
-        <section id="register" class="py-20 bg-darkbg relative border-b border-bordercolor">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-cardbg rounded-3xl p-6 sm:p-10 border border-bordercolor shadow-2xl relative overflow-hidden">
+        <!-- Pre-Register Your Act Form -->
+        <section id="register" class="py-20 bg-darkbg border-b border-bordercolor">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-cardbg rounded-3xl p-8 shadow-xl">
                     <div class="text-center mb-8">
-                        <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 font-bold text-xs uppercase tracking-widest rounded-full mb-3 border border-amber-500/20">
-                            Performer Registration • THE BIG SHOW!
-                        </span>
-                        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-wide">Pre-Register Your Act</h2>
-                        <p class="text-gray-400 text-sm sm:text-base mt-2">Secure your 5 to 10 minute / 1 or 2 song stage slot.</p>
+                        <span class="text-xs text-amber-500 uppercase tracking-widest font-bold block mb-1">Get On Stage</span>
+                        <h3 class="text-3xl font-display font-bold text-white uppercase tracking-wide mb-2">Pre-Register Your Act</h3>
+                        <p class="text-gray-400 text-sm">Secure your 5 to 10 minute / 1 or 2 song stage slot.</p>
                     </div>
 
-                    <form id="performer-form" class="space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div>
-                                <label for="event-date" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Select Event Date <span class="text-amber-500">*</span></label>
-                                <select id="event-date" required class="w-full px-4 py-3 rounded-xl bg-darkbg border border-bordercolor text-white focus:outline-none focus:border-amber-500 text-sm"></select>
-                            </div>
-                            <div>
-                                <label for="act-name" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">PERFORMER OR GROUP NAME <span class="text-amber-500">*</span></label>
-                                <input type="text" id="act-name" required placeholder="e.g., Alex Cruz / East Bay Trio" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-bordercolor text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 text-sm">
-                            </div>
+                    <form id="signup-form" class="space-y-6">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">PERFORMER OR GROUP NAME *</label>
+                            <input type="text" id="act-name" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition" placeholder="Enter name here...">
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label for="email" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Email Address <span class="text-amber-500">*</span></label>
-                                <input type="email" id="email" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-bordercolor text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 text-sm">
-                            </div>
-                            <div>
-                                <label for="phone" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Phone Number</label>
-                                <input type="tel" id="phone" placeholder="(510) 555-0199" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-bordercolor text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 text-sm">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div>
-                                <label for="act-type" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Act / Genre Category <span class="text-amber-500">*</span></label>
-                                <select id="act-type" required class="w-full px-4 py-3 rounded-xl bg-darkbg border border-bordercolor text-white focus:outline-none focus:border-amber-500 text-sm">
+                                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">ACT / GENRE CATEGORY *</label>
+                                <select id="act-category" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition appearance-none">
                                     <option value="" disabled selected>Select Category</option>
-                                    <option value="Acoustic & Solo Vocals">Acoustic & Solo Vocals</option>
+                                    <option value="Acoustic Music">Acoustic Music</option>
                                     <option value="Electric Act">Electric Act</option>
                                     <option value="Stand-Up Comedy">Stand-Up Comedy</option>
-                                    <option value="Miscellaneous (Beatboxing, Magic, Variety)">Miscellaneous (Beatboxing, Magic, Variety)</option>
-                                    <option value="Poetry & Spoken Word">Poetry & Spoken Word</option>
+                                    <option value="Poetry/Spoken Word">Poetry / Spoken Word</option>
+                                    <option value="Juggling/Variety">Juggling / Variety</option>
                                 </select>
                             </div>
                             <div>
-                                <label for="time-slot" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Preferred Time Window <span class="text-amber-500">*</span></label>
-                                <select id="time-slot" required class="w-full px-4 py-3 rounded-xl bg-darkbg border border-bordercolor text-white focus:outline-none focus:border-amber-500 text-sm">
-                                    <option value="" disabled selected>Choose Preferred Window</option>
-                                    <option value="Early Block (6:00 PM - 7:00 PM)">Early Block (6:00 PM - 7:00 PM)</option>
-                                    <option value="Prime Block (7:00 PM - 8:30 PM)">Prime Block (7:00 PM - 8:30 PM)</option>
-                                    <option value="Late Block (8:30 PM - 9:30 PM)">Late Block (8:30 PM - 9:30 PM)</option>
-                                </select>
+                                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Email Address *</label>
+                                <input type="email" id="act-email" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="you@example.com">
                             </div>
                         </div>
 
-                        <!-- Technical & Stage Requirements Needed Section -->
-                        <div class="p-5 rounded-2xl bg-darkbg/70 border border-bordercolor space-y-4">
-                            <label class="block text-xs font-bold text-amber-400 uppercase tracking-wider">Technical & Stage Requirements Needed</label>
+                        <div class="p-5 rounded-xl bg-darkbg/50 border border-bordercolor space-y-5">
+                            <h4 class="text-sm font-bold text-amber-500 uppercase tracking-wider">Technical Requirements</h4>
                             
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="vocal-mics" class="block text-[11px] font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Vocal Mic(s)</label>
-                                    <select id="vocal-mics" name="vocal-mics" class="w-full px-3 py-2.5 rounded-xl bg-cardbg border border-bordercolor text-white focus:outline-none focus:border-amber-500 text-xs">
-                                        <option value="No Vocal Mic">None</option>
-                                        <option value="1 Vocal Mic" selected>1 Vocal Mic</option>
-                                        <option value="2 Vocal Mics">2 Vocal Mics</option>
-                                        <option value="3 Vocal Mics">3 Vocal Mics</option>
-                                        <option value="4 Vocal Mics">4 Vocal Mics</option>
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Vocal Mic(s)</label>
+                                    <select id="vocal-mics" class="w-full bg-cardbg border border-bordercolor rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 transition">
+                                        <option value="0" selected>None</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="inst-inputs" class="block text-[11px] font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Instrument Inputs</label>
-                                    <select id="inst-inputs" name="inst-inputs" class="w-full px-3 py-2.5 rounded-xl bg-cardbg border border-bordercolor text-white focus:outline-none focus:border-amber-500 text-xs">
-                                        <option value="No Instrument Input" selected>None</option>
-                                        <option value="1 Instrument Input">1 Instrument Input</option>
-                                        <option value="2 Instrument Inputs">2 Instrument Inputs</option>
-                                        <option value="3 Instrument Inputs">3 Instrument Inputs</option>
-                                        <option value="4 Instrument Inputs">4 Instrument Inputs</option>
-                                        <option value="5 Instrument Inputs">5 Instrument Inputs</option>
-                                        <option value="6 Instrument Inputs">6 Instrument Inputs</option>
+                                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Instrument Inputs</label>
+                                    <select id="inst-inputs" class="w-full bg-cardbg border border-bordercolor rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 transition">
+                                        <option value="0" selected>None</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                                <label class="flex items-center space-x-2 text-xs text-gray-300 cursor-pointer p-3 rounded-xl bg-cardbg border border-bordercolor hover:border-amber-500/40">
-                                    <input type="checkbox" name="tech" value="Cajon with Pickup" class="rounded border-gray-700 text-amber-500 focus:ring-amber-500">
-                                    <span>Cajon with Pickup</span>
-                                </label>
-                                <label class="flex items-center space-x-2 text-xs text-gray-300 cursor-pointer p-3 rounded-xl bg-cardbg border border-bordercolor hover:border-amber-500/40">
-                                    <input type="checkbox" id="backing-track-checkbox" name="tech" value="Backing Track Playback" class="rounded border-gray-700 text-amber-500 focus:ring-amber-500">
-                                    <span class="font-semibold text-amber-400">Backing Track Playback</span>
+                            <!-- Backing Track Checkbox -->
+                            <div class="pt-2">
+                                <label class="flex items-center space-x-3 cursor-pointer group w-fit">
+                                    <div class="relative flex items-center">
+                                        <input type="checkbox" id="backing-track-toggle" class="peer sr-only">
+                                        <div class="w-5 h-5 rounded border-2 border-gray-500 peer-checked:bg-amber-500 peer-checked:border-amber-500 transition"></div>
+                                        <i class="fa-solid fa-check absolute inset-0 flex items-center justify-center text-black text-xs opacity-0 peer-checked:opacity-100 transition"></i>
+                                    </div>
+                                    <span class="text-sm font-semibold text-gray-300 group-hover:text-white transition">Backing Track Playback</span>
                                 </label>
                             </div>
 
-                            <!-- Conditional Backing Track Upload / URL Section -->
-                            <div id="backing-track-container" class="hidden p-4 rounded-2xl bg-cardbg border border-amber-500/30 space-y-3 transition-all duration-300 mt-2">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-cloud-arrow-up text-amber-400 text-sm"></i>
-                                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Upload or provide a link to your backing track</h4>
-                                </div>
-                                <p class="text-[11px] text-gray-400">Provide your track as an audio file upload or paste an online playback link:</p>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                                    <div>
-                                        <label for="track-file" class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Option A: File Upload</label>
-                                        <input type="file" id="track-file" accept="audio/*" class="block w-full text-xs text-gray-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-500/20 file:text-amber-400 hover:file:bg-amber-500/30 cursor-pointer bg-darkbg border border-bordercolor rounded-xl p-1">
-                                    </div>
-                                    <div>
-                                        <label for="track-url" class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Option B: Track Link URL</label>
-                                        <input type="url" id="track-url" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 rounded-xl bg-darkbg border border-bordercolor text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 text-xs">
-                                    </div>
+                            <!-- Conditional Backing Track Fields -->
+                            <div id="backing-track-fields" class="hidden mt-4 p-4 rounded-lg border border-amber-500/30 bg-amber-500/5 space-y-4">
+                                <h5 class="text-xs font-bold text-white uppercase tracking-wider"><i class="fa-solid fa-cloud-arrow-up mr-2 text-amber-500"></i>Backing track notes or link</h5>
+                                <div>
+                                    <input type="url" id="backing-track-url" placeholder="https://..." class="w-full bg-darkbg border border-bordercolor rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500 transition">
                                 </div>
                             </div>
                         </div>
 
-                        <div>
-                            <label for="bio" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Stage Intro / Fun Fact <span class="text-gray-500">(1-2 sentences for our host)</span></label>
-                            <textarea id="bio" rows="3" placeholder="e.g., 'Welcoming Alex Cruz, bringing loop pedal acoustics and stand-up humor to Gilman Brewing tonight!'" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-bordercolor text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 text-sm"></textarea>
-                        </div>
-
-                        <div class="flex items-start space-x-3 pt-2">
-                            <input type="checkbox" id="terms" required class="mt-1 rounded border-gray-700 text-amber-500 focus:ring-amber-500">
-                            <label for="terms" class="text-xs text-gray-400 leading-normal">
-                                I agree to check in at Gilman Brewing 15 minutes prior, stick to the 5-10 minute / 1-2 song stage limit, and cheer for fellow artists.
-                            </label>
-                        </div>
-
-                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold uppercase tracking-wider text-sm shadow-xl shadow-amber-500/20 transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            Register My Act
+                        <button type="submit" class="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold uppercase tracking-wider text-sm transition-all shadow-lg flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Add to Queue
                         </button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ & VENUE SECTION -->
-        <section id="faq" class="py-20 bg-darkbg">
+        <!-- House Rules & Stage Gear Section -->
+        <section id="rules" class="py-20 bg-darkbg/80 border-b border-bordercolor">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    <div class="lg:col-span-7">
-                        <span class="text-xs text-amber-400 uppercase tracking-widest font-semibold">Questions & Details</span>
-                        <h2 class="text-3xl font-display font-bold text-white uppercase tracking-wide mt-1 mb-8">Frequently Asked Questions</h2>
+                
+                <!-- Stage Rules -->
+                <div class="mb-16">
+                    <div class="text-center max-w-3xl mx-auto mb-10">
+                        <span class="text-xs text-amber-500 uppercase tracking-widest font-bold mb-1 block">Protocols</span>
+                        <h3 class="text-3xl font-display font-bold text-white uppercase tracking-wide">House Rules</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-cardbg rounded-2xl p-6 border border-bordercolor">
+                            <div class="text-amber-500 text-2xl mb-3"><i class="fa-solid fa-stopwatch"></i></div>
+                            <h4 class="text-lg font-bold text-white mb-2">Strict Time Limit</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Performers must adhere to a strict 5-10 minute / 1 or 2 song stage slot limit.</p>
+                        </div>
+                        <div class="bg-cardbg rounded-2xl p-6 border border-bordercolor">
+                            <div class="text-amber-500 text-2xl mb-3"><i class="fa-solid fa-clipboard-user"></i></div>
+                            <h4 class="text-lg font-bold text-white mb-2">Host Check-In</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Please check in with the host at Gilman Brewing 15 minutes prior to your selected block.</p>
+                        </div>
+                        <div class="bg-cardbg rounded-2xl p-6 border border-bordercolor">
+                            <div class="text-amber-500 text-2xl mb-3"><i class="fa-solid fa-hand-sparkles"></i></div>
+                            <h4 class="text-lg font-bold text-white mb-2">Support Other Artists</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Stick around, grab a craft pint, and cheer for fellow Bay Area talent!</p>
+                        </div>
+                        <div class="bg-cardbg rounded-2xl p-6 border border-bordercolor">
+                            <div class="text-amber-500 text-2xl mb-3"><i class="fa-solid fa-users"></i></div>
+                            <h4 class="text-lg font-bold text-white mb-2">Keep it PG-13!</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Gilman Brewing is a family-friendly venue, so please keep your content clean and respectful for all ages.</p>
+                        </div>
+                    </div>
+                </div>
 
-                        <div class="space-y-4" id="faq-accordion">
-                            <div class="border border-bordercolor rounded-2xl bg-cardbg overflow-hidden">
-                                <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center text-white font-medium hover:text-amber-400 transition-colors">
-                                    <span>Where is Gilman Brewing located and is parking available?</span>
-                                    <i class="fa-solid fa-chevron-down text-sm transition-transform duration-200"></i>
-                                </button>
-                                <div class="faq-content hidden px-6 pb-4 text-sm text-gray-400 leading-relaxed border-t border-bordercolor pt-3">
-                                    Gilman Brewing Company is located at 912 Gilman St, Berkeley, CA 94710 (serving the El Cerrito/Berkeley area). Ample street parking is accessible along Gilman St and surrounding blocks.
-                                </div>
+                <!-- Stage Gear -->
+                <div>
+                    <div class="text-center max-w-3xl mx-auto mb-10">
+                        <span class="text-xs text-amber-500 uppercase tracking-widest font-bold mb-1 block">Provided Equipment</span>
+                        <h3 class="text-3xl font-display font-bold text-white uppercase tracking-wide">Gilman House Stage Gear</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-cardbg/50 rounded-2xl p-6 border border-bordercolor flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-plug"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">1x Radial Active DI Box</h4>
                             </div>
-                            <div class="border border-bordercolor rounded-2xl bg-cardbg overflow-hidden">
-                                <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center text-white font-medium hover:text-amber-400 transition-colors">
-                                    <span>Can I sign up as a walk-in on show night?</span>
-                                    <i class="fa-solid fa-chevron-down text-sm transition-transform duration-200"></i>
-                                </button>
-                                <div class="faq-content hidden px-6 pb-4 text-sm text-gray-400 leading-relaxed border-t border-bordercolor pt-3">
-                                    Yes! While online pre-registrations lock in queue priority, walk-in signups open starting when doors open at 5:30 PM on a first-come, first-served basis.
-                                </div>
+                        </div>
+                        <div class="bg-cardbg/50 rounded-2xl p-6 border border-bordercolor flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-box"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">Cajon with Pickup</h4>
                             </div>
-                            <div class="border border-bordercolor rounded-2xl bg-cardbg overflow-hidden">
-                                <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center text-white font-medium hover:text-amber-400 transition-colors">
-                                    <span>Are beatboxing, juggling, and comedy acts welcome?</span>
-                                    <i class="fa-solid fa-chevron-down text-sm transition-transform duration-200"></i>
-                                </button>
-                                <div class="faq-content hidden px-6 pb-4 text-sm text-gray-400 leading-relaxed border-t border-bordercolor pt-3">
-                                    Absolutely! THE BIG SHOW! is modern vaudeville where anything goes—from stand-up comedy and live music to juggling, beatboxing, and wildcard talents.
-                                </div>
-                            </div>
-                            <div class="border border-bordercolor rounded-2xl bg-cardbg overflow-hidden">
-                                <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center text-white font-medium hover:text-amber-400 transition-colors">
-                                    <span>Is food and craft beer available during performance hours?</span>
-                                    <i class="fa-solid fa-chevron-down text-sm transition-transform duration-200"></i>
-                                </button>
-                                <div class="faq-content hidden px-6 pb-4 text-sm text-gray-400 leading-relaxed border-t border-bordercolor pt-3">
-                                    Yes! Gilman Brewing serves award-winning craft brews along with artisan pizzas, burgers, and taproom appetizers throughout the entire evening.
-                                </div>
+                        </div>
+                        <div class="bg-cardbg/50 rounded-2xl p-6 border border-bordercolor flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-sliders"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white">Analog Soundboard</h4>
+                                <p class="text-xs text-gray-400">w/ up to 10 inputs</p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="lg:col-span-5">
-                        <div class="bg-cardbg rounded-3xl p-6 border border-bordercolor h-full flex flex-col justify-between">
-                            <div>
-                                <span class="text-xs text-amber-400 uppercase tracking-widest font-semibold">Venue Location</span>
-                                <h3 class="text-2xl font-display font-bold text-white uppercase tracking-wide mt-1 mb-4">Gilman Brewing Company</h3>
-                                <p class="text-sm text-gray-300 flex items-start gap-2 mb-3">
-                                    <i class="fa-solid fa-location-dot text-amber-400 mt-1"></i>
-                                    <span>912 Gilman St<br>Berkeley, CA 94710</span>
-                                </p>
-                                <p class="text-sm text-gray-300 flex items-center gap-2 mb-6">
-                                    <i class="fa-solid fa-clock text-amber-400"></i>
-                                    <span>Doors Open at 5:30 PM • Show at 6:00 PM</span>
-                                </p>
-                                <div class="w-full h-48 rounded-2xl bg-darkbg border border-bordercolor relative overflow-hidden flex items-center justify-center mb-6">
-                                    <div class="absolute inset-0 bg-[radial-gradient(#282e3a_1px,transparent_1px)] [background-size:16px_16px] opacity-60"></div>
-                                    <div class="text-center z-10 px-4">
-                                        <div class="w-12 h-12 rounded-full bg-amber-500 text-black flex items-center justify-center mx-auto mb-2 font-bold shadow-lg shadow-amber-500/30">
-                                            <i class="fa-solid fa-beer-mug-empty"></i>
-                                        </div>
-                                        <div class="text-sm font-bold text-white">Gilman Brewing Taproom</div>
-                                        <div class="text-xs text-gray-400">El Cerrito / Berkeley Area</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="https://maps.google.com/?cid=16970108387205990749" target="_blank" rel="noopener" class="w-full py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-bold uppercase tracking-wider text-center border border-bordercolor transition-colors flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-map-location-dot text-amber-400"></i>
-                                Open in Google Maps
-                            </a>
-                        </div>
+        <!-- Live Event Lineup Section -->
+        <section id="schedule" class="py-20 bg-darkbg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-8">
+                    <div>
+                        <span class="text-xs text-amber-500 uppercase tracking-widest font-bold block mb-1">Live Event Lineup</span>
+                        <h3 id="queue-title" class="text-3xl font-display font-bold text-white uppercase tracking-wide">
+                            Official Event Queue
+                        </h3>
+                    </div>
+                    <div class="mt-4 md:mt-0 text-sm text-gray-400">
+                        Shows run 6:00 PM - 9:30 PM
+                    </div>
+                </div>
+
+                <!-- Embedded Google Sheet Container -->
+                <div class="bg-cardbg rounded-3xl p-4 border border-bordercolor overflow-hidden shadow-2xl">
+                    <div class="w-full h-[600px] rounded-2xl overflow-hidden bg-darkbg">
+                        <iframe src="YOUR_PUBLISHED_GOOGLE_SHEET_EMBED_URL_HERE" class="w-full h-full border-0"></iframe>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-xs text-gray-400">Maintained and curated exclusively by the event host.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- CONFIRMATION MODAL -->
-    <div id="confirmation-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300">
-        <div class="bg-cardbg border border-amber-500/30 max-w-lg w-full rounded-3xl p-6 sm:p-8 shadow-2xl relative transform transition-transform duration-300 scale-95">
-            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-3xl mx-auto mb-3 border border-amber-500/40">
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
-                <h3 class="text-2xl font-display font-bold text-white uppercase tracking-wide">Registration Confirmed!</h3>
-                <p class="text-xs text-amber-400 uppercase tracking-wider mt-1 font-semibold">THE BIG SHOW! at Gilman Brewing</p>
+    <!-- Footer -->
+    <footer class="bg-cardbg border-t border-bordercolor py-8 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-white font-display font-bold uppercase tracking-widest text-lg mb-2">THE BIG SHOW! <span class="text-amber-500">@ Gilman Brewing</span></p>
+            <p class="text-sm text-gray-500">912 Gilman St, Berkeley, CA 94710</p>
+            <p class="text-xs text-gray-600 mt-4">&copy; 2026 THE BIG SHOW! All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-cardbg border border-amber-500/40 rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl text-center transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="w-16 h-16 rounded-full bg-amber-500 text-black flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-amber-500/30">
+                <i class="fa-solid fa-check"></i>
             </div>
-            <div id="modal-details" class="space-y-3 bg-darkbg p-4 rounded-2xl border border-bordercolor text-xs sm:text-sm text-gray-300 mb-6"></div>
-            <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 text-xs text-amber-300 mb-6 flex items-start gap-2">
-                <i class="fa-solid fa-circle-info mt-0.5"></i>
-                <span><strong>Host Check-In:</strong> Please check in with our host at Gilman Brewing 15 minutes prior to your performance window.</span>
-            </div>
-            <button id="modal-done-btn" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold uppercase tracking-wider text-xs transition-colors">
-                Got It, See You At Gilman Brewing!
+            <h3 class="text-2xl font-display font-bold text-white uppercase tracking-wide mb-2">You're on the list!</h3>
+            <p class="text-gray-400 text-sm mb-6">Your act has been successfully submitted for review!</p>
+            <button onclick="closeModal()" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider text-sm transition-colors border border-bordercolor">
+                Awesome, thanks!
             </button>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-cardbg border-t border-bordercolor py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div>
-                <div class="flex items-center justify-center sm:justify-start space-x-2">
-                    <i class="fa-solid fa-beer-mug-empty text-amber-400"></i>
-                    <span class="font-display font-bold text-white uppercase tracking-wider">THE BIG SHOW! at Gilman Brewing</span>
-                </div>
-                <p class="text-xs text-gray-400 mt-1">912 Gilman St, Berkeley, CA 94710 • Every 3rd Friday 6:00 PM</p>
-            </div>
-            <div class="flex items-center space-x-6 text-gray-400">
-                <a href="http://gilmanbrew.com/" target="_blank" class="hover:text-amber-400 transition-colors text-xs font-semibold">GilmanBrewing.com</a>
-                <a href="#" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
-                <a href="#" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>
-            </div>
-            <div class="text-xs text-gray-500">&copy; <span id="year"></span> THE BIG SHOW! All rights reserved.</div>
-        </div>
-    </footer>
-
-    <!-- JAVASCRIPT LOGIC -->
     <script>
         // --- 1. Dynamic Date Logic ---
         function calculateNextShowDate() {
@@ -604,7 +369,6 @@
             const formData = {
                 actName: document.getElementById('act-name').value,
                 actCategory: document.getElementById('act-category').value,
-                showDate: document.getElementById('show-date').value,
                 actEmail: document.getElementById('act-email').value,
                 vocalMics: document.getElementById('vocal-mics').value,
                 instInputs: document.getElementById('inst-inputs').value,
@@ -612,7 +376,7 @@
             };
 
             // Replace with your deployed Google Apps Script Web App URL
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwVvo0AU8c851S-K1FMI4uqYgO8H9-fsRG9FgamyLzHmt3lZioll1C6e9qqhhe8gxhF/exec";
+            const WEB_APP_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
             try {
                 await fetch(WEB_APP_URL, {
@@ -646,3 +410,5 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwVvo0AU8c851S-K1FM
             }, 300);
         }
     </script>
+</body>
+</html>
