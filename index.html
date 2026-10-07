@@ -281,10 +281,14 @@
                 <!-- Embedded Google Sheet / Doc Container -->
                 <div class="bg-cardbg rounded-3xl p-4 border border-bordercolor overflow-hidden shadow-2xl">
                     <div class="w-full h-[600px] rounded-2xl overflow-hidden bg-darkbg">
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT2yWBG-UX7tGbTtg5lUrv2baIqCOBs9pRTaVwavq9qe-gEUC2AbLY86bTk7DnYHFHrZo6qUuwMByEF/pubhtml" class="w-full h-full border-0"></iframe>
+                        <iframe id="queue-iframe" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT2yWBG-UX7tGbTtg5lUrv2baIqCOBs9pRTaVwavq9qe-gEUC2AbLY86bTk7DnYHFHrZo6qUuwMByEF/pubhtml" class="w-full h-full border-0"></iframe>
                     </div>
                     <div class="mt-4 text-center">
                         <p class="text-xs text-gray-400">Maintained and curated exclusively by the event host.</p>
+                        <!-- Added a manual refresh button -->
+                        <button onclick="refreshQueue()" class="mt-2 sm:mt-0 text-amber-400 hover:text-amber-300 transition flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-rotate-right"></i> Refresh Lineup View
+                        </button>
                     </div>
                 </div>
             </div>
@@ -368,6 +372,14 @@
         const signupForm = document.getElementById('signup-form');
         const modal = document.getElementById('success-modal');
         const modalContent = document.getElementById('modal-content');
+
+        // Added refreshQueue function here
+        function refreshQueue() {
+            const iframe = document.getElementById('gueue-iframe');
+            if (iframe) {
+                iframe.src - iframe.src; //Forces the iframe to reload it's data
+            }
+        }
 
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
