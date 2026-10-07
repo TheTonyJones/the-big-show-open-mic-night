@@ -168,34 +168,33 @@
                     <p class="text-gray-400 text-sm mt-2">Whether testing new material or bringing fresh energy, our taproom stage welcomes all talents.</p>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor hover:border-amber-500/45 transition-all">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-guitar"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">Acoustic & Solo</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Acoustic guitars, singers, keyboardists, and solo vocalists.</p>
-                    </div>
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor hover:border-amber-500/45 transition-all">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-bolt"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">Electric Act</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Electric guitar setups, bass rigs, keyboards, and backing track acts.</p>
-                    </div>
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor hover:border-amber-500/45 transition-all">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-microphone"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">Stand-Up Comedy</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Engaged taproom crowd ready for your best comedy sets.</p>
-                    </div>
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor hover:border-amber-500/45 transition-all">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">Miscellaneous</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Beatboxing, magic, juggling, variety acts, and wildcard talents.</p>
-                    </div>
-                    <div class="p-6 rounded-2xl bg-cardbg border border-bordercolor hover:border-amber-500/45 transition-all sm:col-span-2 lg:col-span-1">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-feather-pointed"></i></div>
-                        <h3 class="text-lg font-bold text-white mb-2">Poetry & Spoken</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Expressive spoken word, poetry readings, and storytelling.</p>
-                    </div>
-                </div>
-            </div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">ACT / GENRE CATEGORY *</label>
+                                <select id="act-category" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition appearance-none">
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option value="Acoustic Music">Acoustic Music</option>
+                                    <option value="Electric Act">Electric Act</option>
+                                    <option value="Stand-Up Comedy">Stand-Up Comedy</option>
+                                    <option value="Poetry/Spoken Word">Poetry / Spoken Word</option>
+                                    <option value="Juggling/Variety">Juggling / Variety</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Preferred Show Date *</label>
+                                <select id="show-date" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition appearance-none">
+                                    <option value="" disabled selected>Select Date</option>
+                                    <option value="October 30, 2026 (Launch Night)">October 30, 2026 (Launch Night)</option>
+                                    <option value="November 20, 2026">November 20, 2026</option>
+                                    <option value="December 18, 2026">December 18, 2026</option>
+                                    <option value="January 15, 2027">January 15, 2027</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Email Address *</label>
+                                <input type="email" id="act-email" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="you@example.com">
+                            </div>
+                        </div>
         </section>
 
         <!-- STAGE RULES & GUIDELINES SECTION -->
@@ -614,6 +613,7 @@
             const formData = {
                 actName: document.getElementById('act-name').value,
                 actCategory: document.getElementById('act-category').value,
+                showDate: document.getElementById('show-date').value,
                 actEmail: document.getElementById('act-email').value,
                 vocalMics: document.getElementById('vocal-mics').value,
                 instInputs: document.getElementById('inst-inputs').value,
@@ -621,7 +621,7 @@
             };
 
             // Replace with your deployed Google Apps Script Web App URL
-            const WEB_APP_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwVvo0AU8c851S-K1FMI4uqYgO8H9-fsRG9FgamyLzHmt3lZioll1C6e9qqhhe8gxhF/exec";
 
             try {
                 await fetch(WEB_APP_URL, {
