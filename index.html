@@ -352,7 +352,9 @@
         }
 
         const nextDate = calculateNextShowDate();
-        document.getElementById('queue-title').innerText = `View ${nextDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} Queue`;
+        const formattedNextDate = nextDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        document.getElementById('hero-next-date').innerText = `Next Show Date: ${formattedNextDate}`;
+        document.getElementById('queue-title').innerText = `View ${formattedNextDate} Queue`;
 
         // --- 2. Dynamic Backing Track Fields Logic ---
         const trackToggle = document.getElementById('backing-track-toggle');
