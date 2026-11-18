@@ -123,6 +123,7 @@
                                     <option value="Stand-Up Comedy">Stand-Up Comedy</option>
                                     <option value="Poetry/Spoken Word">Poetry / Spoken Word</option>
                                     <option value="Juggling/Variety">Juggling / Variety</option>
+                                    <option value="Karaoke">Karaoke</option>
                                 </select>
                             </div>
                             <div>
@@ -130,7 +131,17 @@
                                 <input type="email" id="act-email" required class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="you@example.com">
                             </div>
                         </div>
-
+                        <!-- Conditional Karaoke Fields -->
+                        <div id="karaoke-fields" class="hidden p-5 rounded-xl border border-amber-500/30 bg-amber-500/5 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Song Title</label>
+                                <input type="text" id="karaoke-song" class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="Enter song title...">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Artist</label>
+                                <input type="text" id="karaoke-artist" class="w-full bg-darkbg border border-bordercolor rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition" placeholder="Enter artist name...">
+                            </div>
+                        </div>
                         <div class="p-5 rounded-xl bg-darkbg/50 border border-bordercolor space-y-5">
                             <h4 class="text-sm font-bold text-amber-500 uppercase tracking-wider">Technical Requirements</h4>
                             
@@ -355,6 +366,19 @@
         document.getElementById('queue-title').innerText = `View ${formattedNextDate} Queue`;
 
         // --- 2. Dynamic Backing Track Fields Logic ---
+        const categorySelect = document.getElementById('act-category');
+        const karaokeFields = document.getElementById('karaoke-fields');
+
+        categorySelect.addEventListener('change', (e) => {
+            if (e.target.value === 'Karaoke') {
+                karaokeFields.classList.remove('hidden');
+                karaokeFields.classList.add('animate-pulse');
+                setTimeout(() => karaokeFields.classList.remove('animate-pulse'), 300);
+            } else {
+                karaokeFields.classList.add('hidden');
+            }
+        });
+
         const trackToggle = document.getElementById('backing-track-toggle');
         const trackFields = document.getElementById('backing-track-fields');
         
@@ -372,6 +396,21 @@
         const signupForm = document.getElementById('signup-form');
         const modal = document.getElementById('success-modal');
         const modalContent = document.getElementById('modal-content');
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const isKaraoke = document.getElementById('act-category').value === 'Karaoke';
+            const formData = {
+                actName: document.getElementById('act-name').value,
+                actCategory: document.getElementById('act-category').value,
+                karaokeSong: isKaraoke ? document.getElementById('karaoke-song').value : "",
+                karaokeArtist: isKaraoke ? document.getElementById('karaoke-artist').value : "",
+                actEmail: document.getElementById('act-email').value,
+                vocalMics: document.getElementById('vocal-mics').value,
+                instInputs: document.getElementById('inst-inputs').value,
+                backingTrack: document.getElementById('backing-track-toggle').checked ? (document.getElementById('backing-track-url').value || "Yes") : "No"
+            };
 
         // Added refreshQueue function here
         function refreshQueue() {
