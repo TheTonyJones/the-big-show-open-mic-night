@@ -329,6 +329,20 @@
         </div>
     </div>
 
+    <!-- Karaoke Notice Modal -->
+    <div id="karaoke-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-cardbg border border-amber-500/40 rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl text-center transform scale-95 transition-transform duration-300" id="karaoke-modal-content">
+            <div class="w-16 h-16 rounded-full bg-amber-500 text-black flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-amber-500/30">
+                <i class="fa-solid fa-microphone-lines"></i>
+            </div>
+            <h3 class="text-2xl font-display font-bold text-white uppercase tracking-wide mb-2">Karaoke Policy</h3>
+            <p class="text-gray-300 text-sm leading-relaxed mb-6">Please submit one karaoke song at a time. Once you’ve sung your song, you’re welcome to submit another. Thank you!</p>
+            <button type="button" onclick="closeKaraokeModal()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-wider text-sm transition-colors">
+                Got it!
+            </button>
+        </div>
+    </div>
+
     <script>
         // --- 1. Dynamic Date Logic ---
         function calculateNextShowDate() {
@@ -370,12 +384,32 @@
         // --- 2. Dynamic Backing Track Fields Logic ---
         const categorySelect = document.getElementById('act-category');
         const karaokeFields = document.getElementById('karaoke-fields');
+        const karaokeModal = document.getElementById('karaoke-modal');
+        const karaokeModalContent = document.getElementById('karaoke-modal-content');
+
+        function openKaraokeModal() {
+            if (!karaokeModal || !karaokeModalContent) return;
+            karaokeModal.classList.remove('hidden');
+            void karaokeModal.offsetWidth;
+            karaokeModal.classList.remove('opacity-0');
+            karaokeModalContent.classList.remove('scale-95');
+        }
+
+        function closeKaraokeModal() {
+            if (!karaokeModal || !karaokeModalContent) return;
+            karaokeModal.classList.add('opacity-0');
+            karaokeModalContent.classList.add('scale-95');
+            setTimeout(() => {
+                karaokeModal.classList.add('hidden');
+            }, 300);
+        }
 
         categorySelect.addEventListener('change', (e) => {
             if (e.target.value === 'Karaoke') {
                 karaokeFields.classList.remove('hidden');
                 karaokeFields.classList.add('animate-pulse');
                 setTimeout(() => karaokeFields.classList.remove('animate-pulse'), 300);
+                openKaraokeModal();
             } else {
                 karaokeFields.classList.add('hidden');
             }
