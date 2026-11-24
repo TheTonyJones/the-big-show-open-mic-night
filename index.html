@@ -288,7 +288,15 @@
                         Shows run 6:00 PM - 9:30 PM
                     </div>
                 </div>
-
+                
+                <!-- Top Refresh Action -->
+                <div class="flex justify-end mb-4">
+                    <button type="button" onclick="refreshQueue()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider border border-bordercolor transition-colors">
+                        <i id="refresh-icon-top" class="fa-solid fa-rotate-right"></i>
+                        Refresh Lineup View
+                    </button>
+                </div>
+                
                 <!-- Embedded Google Sheet / Doc Container -->
                 <div class="bg-cardbg rounded-3xl p-4 border border-bordercolor overflow-hidden shadow-2xl">
                     <div class="w-full h-[600px] rounded-2xl overflow-hidden bg-darkbg">
