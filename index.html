@@ -499,6 +499,8 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 300);
+            refreshQueue();
+            document.getElementById('schedule')?.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
