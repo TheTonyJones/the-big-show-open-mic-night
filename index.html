@@ -432,7 +432,9 @@
         function refreshQueue() {
             const iframe = document.getElementById('queue-iframe');
             if (iframe) {
-                iframe.src = iframe.src.split('?')[0] + '?t=' + new Date().getTime(); // Forces the iframe to reload its data each time the refresh button is clicked
+                const url = new URL(iframe.src);
+                url.searchParams.set('t', new Date().getTime()); // Preserves gid and single=true while busting cache
+                iframe.src = url.toString();
             }
         }
 
@@ -455,7 +457,7 @@
                 backingTrack: document.getElementById('backing-track-toggle').checked ? (document.getElementById('backing-track-url').value || "Yes") : "No"
             };
 
-            // Replace with your deployed Google Apps Script Web App URL
+            // Google Apps Script Web App URL
             const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhGme0YCYNwrmSR-ITImsmLTCAEbl7Z55wO5bMLtNaGclo-VXKydPP8-My2tzus_PD/exec";
 
             try {
